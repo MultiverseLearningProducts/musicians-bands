@@ -1,5 +1,5 @@
 const { Band } = require("./Band");
-const { Musician } = require("../Musician");
+const { Musician } = require("./Musician");
 
 module.exports = {
   Band,
