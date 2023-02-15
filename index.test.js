@@ -13,18 +13,24 @@ describe("Band and Musician Models", () => {
   });
 
   test("can create a Band", async () => {
-    Band.create({
+    let band = await Band.create({
       name: "Big Band",
       genre: "Jazz",
+      showCount: 5,
     });
     expect(typeof Band).toBe("function");
+    expect(band).toHaveProperty("name", "Big Band");
+    expect(band).toHaveProperty("genre", "Jazz");
+    // expect(band.showCount).toHaveProperty(5);
   });
 
   test("can create a Musician", async () => {
-    Musician.create({
+    let musician = await Musician.create({
       name: "Matt",
       instrument: "Saxophone",
     });
     expect(typeof Musician).toBe("function");
+    expect(musician).toHaveProperty("name", "Matt");
+    expect(musician).toHaveProperty("instrument", "Saxophone");
   });
 });
