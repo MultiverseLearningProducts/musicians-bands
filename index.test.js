@@ -33,4 +33,22 @@ describe("Band and Musician Models", () => {
     expect(musician).toHaveProperty("name", "Matt");
     expect(musician).toHaveProperty("instrument", "Saxophone");
   });
+
+  test("can create a new Musician", async () => {
+    let newMusician = await Musician.create({
+      name: "Dede",
+      instrument: "Piano",
+    });
+    expect(typeof Musician).toBe("function");
+    expect(newMusician).toHaveProperty("name", "Dede");
+    expect(newMusician).toHaveProperty("instrument", "Piano");
+  });
+  test("delete a Musician Instance", async () => {
+    let Newmusician = await Musician.destroy({
+      where: {
+        name: "Dede",
+      },
+    });
+    expect(typeof Musician).toBe("function");
+  });
 });
