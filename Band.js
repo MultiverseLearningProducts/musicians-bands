@@ -5,6 +5,7 @@ const { Sequelize, sequelize } = require("./db");
 let Band = sequelize.define("Band", {
   name: DataTypes.STRING,
   genre: DataTypes.STRING,
+  showCount: DataTypes.NUMBER,
 });
 
 // add a column to Band

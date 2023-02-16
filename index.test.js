@@ -21,7 +21,7 @@ describe("Band and Musician Models", () => {
     expect(typeof Band).toBe("function");
     expect(band).toHaveProperty("name", "Big Band");
     expect(band).toHaveProperty("genre", "Jazz");
-    // expect(band.showCount).toHaveProperty(5);
+    expect(band.showCount).toBe(5);
   });
 
   test("can create a Musician", async () => {
