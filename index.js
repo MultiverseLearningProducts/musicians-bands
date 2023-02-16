@@ -17,14 +17,19 @@ async () => {
   //   instrument: "Piano",
   // });
 
-  //delete an instance
-  await NewMusician.destroy({
-    where: {
-      name: "Dede",
-    },
-  });
-};
+  //   //delete an instance
+  //   await NewMusician.destroy({
+  //     where: {
+  //       name: "Dede",
+  //     },
+  //   });
 
+  musician.set({
+    name: "Joan",
+    instrument: "Violin",
+  });
+  await musician.save();
+};
 module.exports = {
   Band,
   Musician,

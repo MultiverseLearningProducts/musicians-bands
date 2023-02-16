@@ -51,4 +51,18 @@ describe("Band and Musician Models", () => {
     });
     expect(typeof Musician).toBe("function");
   });
+
+  test("update a Musician Instance", async () => {
+    let musician = await Musician.create({
+      name: "Matt",
+      instrument: "Saxophone",
+    });
+    musician.set({
+      name: "Joan",
+      instrument: "Violin",
+    });
+    await musician.save();
+    expect(musician).toHaveProperty("name", "Joan");
+    expect(musician).toHaveProperty("instrument", "Violin");
+  });
 });
