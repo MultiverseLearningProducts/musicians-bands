@@ -57,7 +57,7 @@ describe("Band and Musician Models", () => {
       name: "Matt",
       instrument: "Saxophone",
     });
-    musician.set({
+    musician.update({
       name: "Joan",
       instrument: "Violin",
     });

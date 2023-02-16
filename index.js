@@ -24,12 +24,13 @@ async () => {
   //     },
   //   });
 
-  musician.set({
+  musician.update({
     name: "Joan",
     instrument: "Violin",
   });
   await musician.save();
 };
+
 module.exports = {
   Band,
   Musician,
