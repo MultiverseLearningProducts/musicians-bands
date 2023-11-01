@@ -6,7 +6,7 @@ const db = new Sequelize({
   storage: "./db.sqlite",
 });
 
-console.log(db);
+// console.log(db);
 
 module.exports = {
   db,
