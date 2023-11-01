@@ -1,19 +1,20 @@
-const { Model, DataTypes } = require('sequelize');
-const {Sequelize, db} = require('../db');
+const { Sequelize, db, Model, DataTypes } = require("../db");
 
 // TODO - define the Musician model
-let Musician;
 
-class Musician extends Model{}
+class Musician extends Model {}
 
-Musician.init({
+Musician.init(
+  {
     name: DataTypes.STRING,
-    genre: DataTypes.STRING,
-}, {
+    instrument: DataTypes.STRING,
+  },
+  {
     sequelize: db,
     modelName: "Musician",
-  })
+  }
+);
 
 module.exports = {
-    Musician
+  Musician,
 };
