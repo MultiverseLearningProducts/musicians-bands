@@ -1,8 +1,25 @@
-const {Sequelize, sequelize} = require('../db');
+const { Model, db, DataTypes } = require("../db");
 
-// TODO - define the Band model
-let Band;
+class Band extends Model {}
 
-module.exports = {
-    Band
-};
+Band.init(
+  {
+    name: DataTypes.STRING,
+    genre: DataTypes.STRING,
+  },
+  {
+    sequelize: db,
+    modelName: "Band",
+  }
+);
+
+// async function newBand() {
+//   await db.sync({ force: true });
+//   await Band.create({
+//     name: "Bad Bunny",
+//     genre: "Trap",
+//   });
+// }
+// newBand();
+
+module.exports = { Band };
