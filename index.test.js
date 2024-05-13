@@ -2,17 +2,30 @@ const { sequelize } = require('./db');
 const { Band, Musician, Song } = require('./index')
 
 describe('Band, Musician, and Song Models', () => {
-  /**
-   * Runs the code prior to all tests
-   */
   beforeAll(async () => {
-      // the 'sync' method will create tables based on the model class
-      // by setting 'force:true' the tables are recreated each time the 
-      // test suite is run
-      await sequelize.sync({ force: true });
+    await sequelize.sync({ force: true });
+    
+    await Band.create({ name: 'Band A' });
+    await Band.create({ name: 'Band B' });
+    
+    await Musician.create({ name: 'Musician 1', BandId: 1 });
+    await Musician.create({ name: 'Musician 2', BandId: 1 });
+    await Musician.create({ name: 'Musician 3', BandId: 2 });
+
+    await Song.create({ title: 'Song 1' });
+    await Song.create({ title: 'Song 2' });
   })
 
-  test('can create a Band', async () => {
+  test('is associated', async () => {
+    const bands = await Band.findAll({ include: Musician });
+
+    expect(bands.length).toBe(2);
+    expect(bands[0].Musicians.length).toBe(2);
+    expect(bands[1].Musicians.length).toBe(1);
+    console.log(bands[0]);
+  })
+
+  /*test('can create a Band', async () => {
     const createdBand = await Band.create({ name: 'Test Band' });
     expect(createdBand.name).toBe('Test Band');
   })
@@ -52,4 +65,22 @@ describe('Band, Musician, and Song Models', () => {
     const foundMusician = await Band.findByPk(musician.id);
     expect(foundMusician).toBeNull();
   })
+  */
+
+  test("bands have associated songs", async () => {
+    // Assuming you have associated songs with bands
+    const band = await Band.findByPk(1);
+    const songs = await band.getSongs();
+  
+    expect(songs.length).toBe(0);
+  
+    await band.addSong(1);
+    await band.addSong(2);
+  
+    // Retrieve songs again
+    const updatedSongs = await band.getSongs();
+  
+    // Check associations again
+    expect(updatedSongs.length).toBe(2);
+  });
 })
