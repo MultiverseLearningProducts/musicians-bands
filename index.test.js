@@ -26,8 +26,14 @@ describe("Band, Musician, and Song Models", () => {
   });
 
   test("can update a Band", async () => {
+    const band = await Band.create({ name: "Beatles", genre: "rock" });
+    band.name = "The Beatles";
+    band.genre = "classic rock";
+    await band.save();
+    const updatedBand = await Band.findByPk(band.id);
     // TODO - test updating a band
-    expect("NO TEST").toBe("EXPECTED VALUE HERE");
+    expect(updatedBand.name).toBe("The Beatles");
+    expect(updatedBand.genre).toBe("classic rock");
   });
 
   test("can update a Musician", async () => {
@@ -36,8 +42,11 @@ describe("Band, Musician, and Song Models", () => {
   });
 
   test("can delete a Band", async () => {
+    const band = await Band.create({ name: "Beatles", genre: "rock" });
+    await band.destroy();
+    const deletedBand = await Band.findByPk(band.id);
     // TODO - test deleting a band
-    expect("NO TEST").toBe("EXPECTED VALUE HERE");
+    expect(deletedBand).toBeNull();
   });
 
   test("can delete a Musician", async () => {
