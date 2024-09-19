@@ -3,7 +3,7 @@ const { Musician } = require("./models/Musician");
 const { Song } = require("./models/Song");
 // Define associations here
 
-Musician.belongsTo(Band); // one-to-one relationship
+Musician.belongsTo(Band);
 Band.hasMany(Musician);
 
 module.exports = {
