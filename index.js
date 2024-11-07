@@ -3,12 +3,11 @@ const { Musician } = require("./models/Musician");
 const { Song } = require("./models/Song");
 const { sequelize } = require("./db");
 
-// Define associations here
 Band.hasMany(Musician);
 Musician.belongsTo(Band);
 
-Band.hasMany(Song);
-Song.belongsTo(Band);
+Band.belongsToMany(Song, { through: "BandSongs" });
+Song.belongsToMany(Band, { through: "BandSongs" });
 
 module.exports = {
   Band,

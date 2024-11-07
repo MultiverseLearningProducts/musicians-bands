@@ -66,4 +66,77 @@ describe("Band, Musician, and Song Models", () => {
     const foundMusician = await Musician.findByPk(musician.id);
     expect(foundMusician).toBeNull();
   });
+
+  test("Associates Band with Musicians", async () => {
+    // TODO - test associating musicians with a band
+    const band = await Band.create({ name: "The Rockers", genre: "Rock" });
+    const musician1 = await Musician.create({
+      name: "Alice",
+      instrument: "Guitar",
+      BandId: band.id,
+    });
+    const musician2 = await Musician.create({
+      name: "Bob",
+      instrument: "Drums",
+      BandId: band.id,
+    });
+
+    const musicians = await band.getMusicians();
+    expect(musicians.length).toBe(2);
+    expect(musicians[0].name).toBe("Alice");
+    expect(musicians[1].name).toBe("Bob");
+  });
+
+  test("Associates Bands with Songs", async () => {
+    // TODO - test associating songs with bands
+    const band1 = await Band.create({ name: "The Rockers", genre: "Rock" });
+    const band2 = await Band.create({ name: "The Jazzers", genre: "Jazz" });
+    const song1 = await Song.create({
+      title: "Rock Anthem",
+      year: 2020,
+      length: 300,
+    });
+    const song2 = await Song.create({
+      title: "Jazz Melody",
+      year: 2021,
+      length: 250,
+    });
+
+    await band1.addSong(song1);
+    await band1.addSong(song2);
+    await band2.addSong(song1);
+
+    const songsOfBand1 = await band1.getSongs();
+    expect(songsOfBand1.length).toBe(2);
+    expect(songsOfBand1[0].title).toBe("Rock Anthem");
+    expect(songsOfBand1[1].title).toBe("Jazz Melody");
+
+    const bandsOfSong1 = await song1.getBands();
+    expect(bandsOfSong1.length).toBe(2);
+    expect(bandsOfSong1[0].name).toBe("The Rockers");
+    expect(bandsOfSong1[1].name).toBe("The Jazzers");
+  });
+
+  test("Adds multiple musicians to a band", async () => {
+    // TODO - test adding multiple musicians to a band
+    const band = await Band.create({
+      name: "The New Band",
+      genre: "Alternative",
+    });
+    const musician1 = await Musician.create({
+      name: "Charlie",
+      instrument: "Bass",
+      BandId: band.id,
+    });
+    const musician2 = await Musician.create({
+      name: "Dave",
+      instrument: "Keyboard",
+      BandId: band.id,
+    });
+
+    const musicians = await band.getMusicians();
+    expect(musicians.length).toBe(2);
+    expect(musicians[0].name).toBe("Charlie");
+    expect(musicians[1].name).toBe("Dave");
+  });
 });
