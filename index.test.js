@@ -13,32 +13,65 @@ describe('Band, Musician, and Song Models', () => {
     })
 
     test('can create a Band', async () => {
-        // TODO - test creating a band
-        expect('NO TEST').toBe('EXPECTED VALUE HERE');
+        const testBand = await Band.create({name:"Hashid"}, {genre:"Rock"})
+        expect(testBand.name).toBe('Hashid');
     })
 
     test('can create a Musician', async () => {
-        // TODO - test creating a musician
-        expect('NO TEST').toBe('EXPECTED VALUE HERE');
+        const testMusicican = await Musician.create({name:"Future"}, {instrument:"Booth"})
+        expect(testMusicican.name).toBe('Future');
+    })
+
+    test('can create a Song', async () => {
+        const testSong = await Song.create({title: "Hard to Choose One"}, {year: 2019}, {length:2905})
+        expect(testSong.title).toBe('Hard to Choose One');
     })
 
     test('can update a Band', async () => {
-        // TODO - test updating a band
-        expect('NO TEST').toBe('EXPECTED VALUE HERE');
+        const testBand = await Band.create({name:"ACDC"}, {genre:"RRoll"})
+        await testBand.update({name:"Jackson5"}) 
+        await testBand.save()
+        expect(testBand.name).toBe('Jackson5');
     })
 
     test('can update a Musician', async () => {
-        // TODO - test updating a musician
-        expect('NO TEST').toBe('EXPECTED VALUE HERE');
+        const testMusician =  await Musician.create({name:"Rocko"}, {instrument:"Microphone"})
+        await testMusician.update({instrument: "Studio"});
+        await testMusician.save();
+        expect(testMusician.instrument).toBe('Studio');
+    })
+
+    test('can update a Song', async () => {
+        const testSong =  await Song.create({name:"Rocko"}, {year:1964}, {length:3210})
+        await testSong.update({year:1984});
+        await testSong.save();
+        expect(testSong.year).toBe(1984);
     })
 
     test('can delete a Band', async () => {
-        // TODO - test deleting a band
-        expect('NO TEST').toBe('EXPECTED VALUE HERE');
+        let testBand = await Band.create({name:"Hashid"}, {genre:"Rock"});
+         await testBand.destroy();
+         const deletedBand = await Band.findByPk(testBand.id)
+         expect(deletedBand).toBeNull();
     })
 
+
     test('can delete a Musician', async () => {
-        // TODO - test deleting a musician
-        expect('NO TEST').toBe('EXPECTED VALUE HERE');
+        let testMusician =  await Musician.create({name:"Rocko"}, {instrument:"Microphone"})
+         await testMusician.destroy();
+         const deleteMusician = await Musician.findByPk(testMusician.id)
+         expect(deleteMusician).toBeNull();
     })
+
+
+
+    test('can delete a Song', async () => {
+        let testSong = await Song.create({title: "Hard to Choose One"}, {year: 2019}, {length:2905})
+         await testSong.destroy();
+         const deleteSong = await Song.findByPk(testSong.id)
+         expect(deleteSong).toBeNull();
+    })
+
+
+
 })
