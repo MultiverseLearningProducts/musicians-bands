@@ -7,6 +7,7 @@ let Musician = sequelize.define('Musician',
         instrument:Sequelize.STRING,
     });
 
+
 module.exports = {
     Musician
 };
